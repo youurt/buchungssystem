@@ -48,6 +48,7 @@ export default {
   methods: {
     onSubmit(event) {
       event.preventDefault();
+      this.$store.dispatch('loggedIn', this.form);
       alert(JSON.stringify(this.form));
     },
   },

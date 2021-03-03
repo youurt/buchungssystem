@@ -7,11 +7,10 @@
         </h5>
         <h6>Subheader</h6>
       </div>
-      <div class="text-md-center mr-2">
-        <!-- Bearbeiten -->
+      <!-- <div class="text-md-center mr-2">
+
 
         <b-button
-          v-if="showSelected"
           id="button-1"
           text="Bearbeiten"
           class="m-md-2"
@@ -19,17 +18,22 @@
           >Bearbeiten
         </b-button>
 
-        <!-- Bearbeiten -->
-        <!-- <b-dropdown id="dropdown-1" text="Neu" class="m-md-2">
+
+        <b-dropdown id="dropdown-1" text="Neu" class="m-md-2">
           <b-dropdown-item @click="resetModal" v-b-modal.modal-2
             >Buchung</b-dropdown-item
           >
           <b-dropdown-item>Event</b-dropdown-item>
           <b-dropdown-item>Standort</b-dropdown-item>
-        </b-dropdown> -->
+        </b-dropdown>
 
-        <!-- MODAL Bearbeiten -->
-        <b-modal id="modal-1" hide-footer title="BootstrapVue" ref="my-modal">
+
+        <b-modal
+          id="modal-1"
+          title="BootstrapVue"
+          ref="my-modal"
+          cancel-title="Schließen"
+        >
           <div>
             <b-form>
               <b-form-group
@@ -49,15 +53,10 @@
             <b-card class="mt-3" header="Form Data Result">
               <pre class="m-0">{{ selectedForm }}</pre>
             </b-card>
-            <b-button class="mt-2" variant="primary" block @click="hideModal"
-              >OK</b-button
-            >
           </div>
         </b-modal>
-        <!-- MODAL Bearbeiten -->
 
-        <!-- MODAL Neu Buchung-->
-        <!-- <b-modal id="modal-2" title="BootstrapVue" cancel-title="Schließen">
+        <b-modal id="modal-2" title="BootstrapVue" cancel-title="Schließen">
           <div>
             <b-form>
               <b-form-group
@@ -92,9 +91,9 @@
               <pre class="m-0">{{ form }}</pre>
             </b-card>
           </div>
-        </b-modal> -->
-        <!-- MODAL Neu Buchung -->
-      </div>
+        </b-modal>
+
+      </div> -->
     </b-row>
   </div>
 </template>
@@ -110,9 +109,6 @@ export default {
     };
   },
   computed: {
-    showSelected() {
-      return Object.keys(this.$store.state.adminStore.selected).length > 0;
-    },
     selected() {
       return this.$store.state.adminStore.selected;
     },
@@ -131,17 +127,10 @@ export default {
       alert(JSON.stringify(this.form));
     },
     resetModal() {
+      console.log(this.$store.state.adminStore.selected === null);
       this.form.email = '';
       this.form.name = '';
     },
-
-    hideModal() {
-      // this.$store.dispatch('updateStateData', this.computedSelectedData);
-      this.$refs['my-modal'].hide();
-    },
-  },
-  mounted() {
-    console.log();
   },
 };
 </script>

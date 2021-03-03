@@ -6,6 +6,7 @@
           ><b-card-text>
             <b-table
               striped
+              responsive="sm"
               hover
               :items="items"
               :fields="fields"
@@ -21,6 +22,7 @@
           ><b-card-text
             ><b-table
               striped
+              responsive="sm"
               hover
               :items="items"
               :fields="fields"
@@ -36,6 +38,7 @@
           ><b-card-text
             ><b-table
               striped
+              responsive="sm"
               hover
               :items="items"
               :fields="fields"
