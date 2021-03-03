@@ -6,7 +6,7 @@
         <LoginForm />
       </div>
       <div v-else-if="currentRouteName === 'Admin'">
-        <AdminContainer />
+        <AdminCards />
       </div>
       <div v-else-if="currentRouteName === 'User'">
         <UserContainer />
@@ -18,7 +18,7 @@
 <script>
 import CardHeader from './CardHeader';
 import LoginForm from './LoginForm';
-import AdminContainer from './AdminContainer';
+import AdminCards from './AdminCards';
 import UserContainer from './UserContainer';
 
 export default {
@@ -27,7 +27,7 @@ export default {
   components: {
     CardHeader,
     LoginForm,
-    AdminContainer,
+    AdminCards,
     UserContainer,
   },
   computed: {

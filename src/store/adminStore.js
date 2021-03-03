@@ -48,12 +48,10 @@ const adminStore = {
       state.selected = { ...selectedForm, value };
     },
     adminloggedIn(state, adminData) {
-      console.log('adminloggedig');
-      state.loggedIn = adminData;
+      state.adminData = adminData;
     },
     userloggedin(state, userData) {
-      state.loggedIn = userData;
-      console.log('userloggedin');
+      state.userData = userData;
     },
   },
   actions: {

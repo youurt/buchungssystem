@@ -48,8 +48,25 @@ export default {
   methods: {
     onSubmit(event) {
       event.preventDefault();
+
       this.$store.dispatch('loggedIn', this.form);
-      alert(JSON.stringify(this.form));
+      if (this.adminLoggedIn.email) {
+        this.$router.push('admin');
+        localStorage.setItem('adminLoggedIn', true);
+      } else {
+        this.$router.push('user');
+        localStorage.setItem('adminLoggedIn', false);
+      }
+
+      // alert(JSON.stringify(this.form));
+    },
+  },
+  computed: {
+    adminLoggedIn() {
+      return this.$store.state.adminStore.adminData;
+    },
+    userLoggedIn() {
+      return this.$store.state.adminStore.userData;
     },
   },
 };
