@@ -1,7 +1,7 @@
 const adminStore = {
   state: () => ({
-    someValue: 100,
-    selected: null,
+    selected: {},
+
     fields: [
       {
         key: 'last_name',
@@ -36,19 +36,19 @@ const adminStore = {
     ],
   }),
   mutations: {
-    removeSomeValue(state, amount) {
-      state.someValue -= amount;
-    },
     changeSelected(state, items) {
-      state.selected = items;
+      state.selected = items[0];
+    },
+    updateSelectedForm(state, value) {
+      state.selected = { ...selectedForm, value };
     },
   },
   actions: {
-    removeSomeValue(context, amount) {
-      context.commit('removeSomeValue', amount);
+    changeSelected(context, items) {
+      context.commit('changeSelected', items);
     },
-    changeSelected(context, item) {
-      context.commit('changeSelected', item);
+    updateSelectedForm(context, value) {
+      context.commit('updateSelectedForm', value);
     },
   },
 };
