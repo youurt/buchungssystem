@@ -9,23 +9,7 @@ const adminStore = {
     active: 'Unternehmen',
     unternehmenData: {},
     selectedDate: '',
-    // fields: [
-    //   {
-    //     key: 'last_name',
-    //     sortable: true,
-    //   },
-    //   {
-    //     key: 'first_name',
-    //     sortable: true,
-    //   },
-    //   {
-    //     key: 'age',
-    //     label: 'Person age',
-    //     sortable: true,
-    //     // Variant applies to the whole column, including the header and footer
-    //     //   variant: 'danger',
-    //   },
-    // ],
+    loggedInUser: '',
     items: [
       {
         age: 40,
@@ -327,6 +311,9 @@ const adminStore = {
         standort: payload.standort,
       });
     },
+    loggedInUserIs(state, user) {
+      state.loggedInUser = user;
+    },
   },
   actions: {
     changeSelected(context, items) {
@@ -368,6 +355,9 @@ const adminStore = {
     },
     collectData(context, payload) {
       context.commit('collectData', payload);
+    },
+    loggedInUserIs(context, user) {
+      context.commit('loggedInUserIs', user);
     },
   },
 };

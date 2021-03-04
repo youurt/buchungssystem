@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="testClick">
     <b-form @submit="onSubmit">
       <b-form-group
         id="input-group-1"
@@ -53,12 +53,28 @@ export default {
       if (this.adminLoggedIn.email) {
         this.$router.push('admin');
         // localStorage.setItem('adminLoggedIn', true);
-      } else {
-        this.$router.push('user');
-        // localStorage.setItem('adminLoggedIn', false);
       }
 
+      if (
+        this.$store.state.adminStore.unternehmenItems.filter((el) => {
+          return (
+            el.login === this.form.email && el.password === this.form.password
+          );
+        }).length === 1
+      ) {
+        this.$store.dispatch('loggedInUserIs', this.form.email);
+        this.$router.push('start');
+      }
+      // else {
+      //   this.$router.push('user');
+      //   // localStorage.setItem('adminLoggedIn', false);
+      // }
+
       // alert(JSON.stringify(this.form));
+    },
+    testClick() {
+      console.log(this.$store.state.adminStore.unternehmenItems);
+      console.log();
     },
   },
   computed: {
