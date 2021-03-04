@@ -5,7 +5,9 @@
         <h5 class="yellow-text">
           Header
         </h5>
-        <h6>Subheader</h6>
+        <b-badge v-if="currentRouteName === 'Admin'" variant="primary" pill>{{
+          counterItemsGetter
+        }}</b-badge>
       </div>
       <div class="text-md-center mr-2">
         <div v-if="currentRouteName === 'Admin'">
@@ -15,23 +17,14 @@
             text="Bearbeiten"
             class="m-md-2"
             v-b-modal.modal-1
-            @click="resetModal"
             >Bearbeiten
           </b-button>
 
           <b-dropdown id="dropdown-1" text="Neu" class="m-md-2">
-            <b-dropdown-item @click="resetModal" v-b-modal.modal-2
-              >Unternehmen</b-dropdown-item
-            >
-            <b-dropdown-item @click="resetModal" v-b-modal.modal-3
-              >Event</b-dropdown-item
-            >
-            <b-dropdown-item @click="resetModal" v-b-modal.modal-4
-              >Termine</b-dropdown-item
-            >
-            <b-dropdown-item @click="resetModal" v-b-modal.modal-5
-              >Standort</b-dropdown-item
-            >
+            <b-dropdown-item v-b-modal.modal-2>Unternehmen</b-dropdown-item>
+            <b-dropdown-item v-b-modal.modal-3>Buchung</b-dropdown-item>
+            <b-dropdown-item v-b-modal.modal-4>Termine</b-dropdown-item>
+            <b-dropdown-item v-b-modal.modal-5>Standort</b-dropdown-item>
           </b-dropdown>
         </div>
         <!-- Bearbeiten -->
@@ -73,6 +66,7 @@
           title="Neues Unternehmen hinzufügen"
           cancel-title="Schließen"
           ref="my-modal-unternehmen"
+          hide-footer
         >
           <div>
             <b-form>
@@ -83,7 +77,7 @@
               >
                 <b-form-input
                   id="input-1"
-                  v-model="unternehmenSelected.name"
+                  v-model="unternehmenData.name"
                   placeholder="Name des Unterhmens"
                   required
                 ></b-form-input>
@@ -96,7 +90,7 @@
               >
                 <b-form-input
                   id="input-2"
-                  v-model="unternehmenSelected.adresse"
+                  v-model="unternehmenData.adresse"
                   placeholder="Adresse des Unternehmens"
                   required
                 ></b-form-input>
@@ -109,7 +103,7 @@
                 <b-form-input
                   id="input-3"
                   type="email"
-                  v-model="unternehmenSelected.login"
+                  v-model="unternehmenData.login"
                   placeholder="Login des Unternehmens"
                   required
                 ></b-form-input>
@@ -122,22 +116,23 @@
                 <b-form-input
                   id="input-4"
                   type="password"
-                  v-model="unternehmenSelected.password"
+                  v-model="unternehmenData.password"
                   placeholder="Passwort des Unternehmens"
                   required
                 ></b-form-input>
               </b-form-group>
             </b-form>
             <b-card class="mt-3" header="Form Data Result">
-              <pre class="m-0">{{ unternehmenSelected }}</pre>
+              <pre class="m-0">{{ unternehmenData }}</pre>
             </b-card>
           </div>
+          <b-button class="mt-3" @click="hideModalU">Bestätigen</b-button>
         </b-modal>
         <!-- Neu Unternehmen-->
         <!-- Neu Event-->
         <b-modal
           id="modal-3"
-          title="Neues Event hinzufügen"
+          title="Neue Buchung hinzufügen"
           cancel-title="Schließen"
           hide-footer
           ref="my-modal-event"
@@ -171,24 +166,34 @@
                 label="Datum:"
                 label-for="input-7"
               >
-                <b-form-input
+                <b-form-datepicker
+                  required
+                  id="example-datepicker"
+                  v-model="eventData.datum"
+                  class="mb-2"
+                ></b-form-datepicker>
+                <!-- <b-form-input
                   id="input-7"
                   v-model="eventData.datum"
                   placeholder="Datum des Events"
                   required
-                ></b-form-input>
+                ></b-form-input> -->
               </b-form-group>
               <b-form-group
                 id="input-group-8"
                 label="Uhrzeit:"
                 label-for="input-8"
               >
-                <b-form-input
+                <b-form-timepicker
+                  v-model="eventData.uhrzeit"
+                  locale="de"
+                ></b-form-timepicker>
+                <!-- <b-form-input
                   id="input-8"
                   v-model="eventData.uhrzeit"
                   placeholder="Uhrzeit des Events"
                   required
-                ></b-form-input>
+                ></b-form-input> -->
               </b-form-group>
 
               <b-form-group
@@ -216,11 +221,11 @@
                 ></b-form-input>
               </b-form-group>
             </b-form>
-            <!-- <b-card class="mt-3" header="Form Data Result">
-              <pre class="m-0">{{ unternehmenData }}</pre>
-            </b-card> -->
+            <b-card class="mt-3" header="Form Data Result">
+              <pre class="m-0">{{ eventData }}</pre>
+            </b-card>
           </div>
-          <b-button class="mt-3" @click="hideModalT">Bestätigen</b-button>
+          <b-button class="mt-3" @click="hideModalE">Bestätigen</b-button>
         </b-modal>
         <!-- Neu Event-->
         <b-modal
@@ -295,9 +300,6 @@
                 ></b-form-input>
               </b-form-group>
             </b-form>
-            <!-- <b-card class="mt-3" header="Form Data Result">
-              <pre class="m-0">{{ unternehmenData }}</pre>
-            </b-card> -->
           </div>
           <b-button class="mt-3" @click="hideModalT">Bestätigen</b-button>
         </b-modal>
@@ -469,18 +471,21 @@ export default {
     updatedUnternehmenGetter() {
       return this.$store.getters.updatedUnternehmen;
     },
+    counterItemsGetter() {
+      return this.$store.getters.counterItems;
+    },
   },
   methods: {
     onSubmit(event) {
       event.preventDefault();
       alert(JSON.stringify(this.form));
     },
-    // hideModalU() {
-    //   this.$refs['my-modal-unternehmen'].hide();
-    //   // this.$store.commit('addUnternehmen', this.unternehmenData);
-    //   console.log(this.unternehmen, 'unternehmen');
-    //   console.log(this.unternehmenData, 'unternehmendatafirst');
-    // },
+    hideModalU() {
+      this.$refs['my-modal-unternehmen'].hide();
+      this.$store.commit('addUnternehmen', this.unternehmenData);
+      console.log(this.unternehmen, 'unternehmen');
+      console.log(this.unternehmenData, 'unternehmendatafirst');
+    },
     hideModalE() {
       this.$refs['my-modal-event'].hide();
       this.$store.commit('addEvent', this.eventData);

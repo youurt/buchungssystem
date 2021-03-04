@@ -122,7 +122,7 @@ const adminStore = {
         name: 'Buchung A',
         id: nanoid(6),
         datum: '2021-03-21',
-        uhrzeit: '15:00',
+        uhrzeit: '15:00:00',
         nameteilnehmer: 'John Doe',
         standort: 'Standort A',
       },
@@ -130,7 +130,7 @@ const adminStore = {
         name: 'Buchung B',
         id: nanoid(6),
         datum: '2021-03-17',
-        uhrzeit: '12:00',
+        uhrzeit: '12:00:00',
         nameteilnehmer: 'Jane Doe',
         standort: 'Standort C',
       },
@@ -138,7 +138,7 @@ const adminStore = {
         name: 'Buchung C',
         id: nanoid(6),
         datum: '2021-03-07',
-        uhrzeit: '11:00',
+        uhrzeit: '11:00:00',
         nameteilnehmer: 'John Dane',
         standort: 'Standort C',
       },
@@ -171,28 +171,28 @@ const adminStore = {
       {
         name: 'Termin A',
         datum: '2021-03-07',
-        uhrzeit: '11:00',
+        uhrzeit: '11:00:00',
         anzahlteilnehmer: '12',
         standort: 'Standort C',
       },
       {
         name: 'Termin X',
         datum: '2021-03-07',
-        uhrzeit: '13:00',
+        uhrzeit: '13:00:00',
         anzahlteilnehmer: '13',
         standort: 'Standort B',
       },
       {
         name: 'Termin B',
         datum: '2021-03-17',
-        uhrzeit: '12:00',
+        uhrzeit: '12:00:00',
         anzahlteilnehmer: '22',
         standort: 'Standort C',
       },
       {
         name: 'Termin C',
         datum: '2021-03-21',
-        uhrzeit: '15:00',
+        uhrzeit: '15:00:00',
         anzahlteilnehmer: '2',
         standort: 'Standort A',
       },
@@ -266,6 +266,17 @@ const adminStore = {
         return item.datum === state.selectedDate;
       });
       return data;
+    },
+    counterItems: (state) => {
+      if (state.active === 'Unternehmen') {
+        return null;
+      } else if (state.active === 'Buchungen') {
+        return `${state.buchungenItems.length} Buchungen`;
+      } else if (state.active === 'Termine') {
+        return `${state.termineItems.length} Termine`;
+      } else if (state.active === 'Standorte') {
+        return `${state.standorteItems.length} Standorte`;
+      }
     },
   },
   mutations: {
