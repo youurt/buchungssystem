@@ -52,10 +52,10 @@ export default {
       this.$store.dispatch('loggedIn', this.form);
       if (this.adminLoggedIn.email) {
         this.$router.push('admin');
-        localStorage.setItem('adminLoggedIn', true);
+        // localStorage.setItem('adminLoggedIn', true);
       } else {
         this.$router.push('user');
-        localStorage.setItem('adminLoggedIn', false);
+        // localStorage.setItem('adminLoggedIn', false);
       }
 
       // alert(JSON.stringify(this.form));
