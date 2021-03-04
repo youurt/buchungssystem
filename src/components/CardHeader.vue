@@ -15,6 +15,7 @@
             text="Bearbeiten"
             class="m-md-2"
             v-b-modal.modal-1
+            @click="resetModal"
             >Bearbeiten
           </b-button>
 
@@ -71,7 +72,6 @@
           id="modal-2"
           title="Neues Unternehmen hinzufügen"
           cancel-title="Schließen"
-          hide-footer
           ref="my-modal-unternehmen"
         >
           <div>
@@ -83,7 +83,7 @@
               >
                 <b-form-input
                   id="input-1"
-                  v-model="unternehmenData.name"
+                  v-model="unternehmenSelected.name"
                   placeholder="Name des Unterhmens"
                   required
                 ></b-form-input>
@@ -96,7 +96,7 @@
               >
                 <b-form-input
                   id="input-2"
-                  v-model="unternehmenData.adresse"
+                  v-model="unternehmenSelected.adresse"
                   placeholder="Adresse des Unternehmens"
                   required
                 ></b-form-input>
@@ -109,7 +109,7 @@
                 <b-form-input
                   id="input-3"
                   type="email"
-                  v-model="unternehmenData.login"
+                  v-model="unternehmenSelected.login"
                   placeholder="Login des Unternehmens"
                   required
                 ></b-form-input>
@@ -122,17 +122,16 @@
                 <b-form-input
                   id="input-4"
                   type="password"
-                  v-model="unternehmenData.password"
+                  v-model="unternehmenSelected.password"
                   placeholder="Passwort des Unternehmens"
                   required
                 ></b-form-input>
               </b-form-group>
             </b-form>
-            <!-- <b-card class="mt-3" header="Form Data Result">
-              <pre class="m-0">{{ unternehmenData }}</pre>
-            </b-card> -->
+            <b-card class="mt-3" header="Form Data Result">
+              <pre class="m-0">{{ unternehmenSelected }}</pre>
+            </b-card>
           </div>
-          <b-button class="mt-3" @click="hideModalU">Bestätigen</b-button>
         </b-modal>
         <!-- Neu Unternehmen-->
         <!-- Neu Event-->
@@ -453,37 +452,61 @@ export default {
         this.$store.commit('updateSelectedForm', value);
       },
     },
+    unternehmenSelected: {
+      get() {
+        return this.$store.state.adminStore.unternehmenData;
+      },
+      set(value) {
+        this.$store.commit('updateUnternehmen', value);
+      },
+    },
+    unternehmen() {
+      return this.$store.state.adminStore.unternehmenItems;
+    },
+    unternehmenDataShow() {
+      return this.$store.state.adminStore.unternehmenData;
+    },
+    updatedUnternehmenGetter() {
+      return this.$store.getters.updatedUnternehmen;
+    },
   },
   methods: {
     onSubmit(event) {
       event.preventDefault();
       alert(JSON.stringify(this.form));
     },
-    hideModalU() {
-      this.$refs['my-modal-unternehmen'].hide();
-      this.$store.commit('addUnternehmen', this.unternehmenData);
-      // console.log(this.unternehmenData);
-    },
+    // hideModalU() {
+    //   this.$refs['my-modal-unternehmen'].hide();
+    //   // this.$store.commit('addUnternehmen', this.unternehmenData);
+    //   console.log(this.unternehmen, 'unternehmen');
+    //   console.log(this.unternehmenData, 'unternehmendatafirst');
+    // },
     hideModalE() {
       this.$refs['my-modal-event'].hide();
       this.$store.commit('addEvent', this.eventData);
+
       // console.log(this.unternehmenData);
     },
     hideModalT() {
       this.$refs['my-modal-termin'].hide();
       this.$store.commit('addTermin', this.termineData);
+
       // console.log(this.unternehmenData);
     },
     hideModalS() {
       this.$refs['my-modal-standorte'].hide();
       this.$store.commit('addStandort', this.standorteData);
+
       // console.log(this.unternehmenData);
     },
     resetModal() {
-      this.unternehmenData.name = '';
-      this.unternehmenData.adresse = '';
-      this.unternehmenData.login = '';
-      this.unternehmenData.password = '';
+      console.log(this.unternehmen, 'unternehmen');
+      console.log(this.unternehmenDataShow, 'unternehmendata');
+      console.log(this.updatedUnternehmenGetter);
+      // this.unternehmenData.name = '';
+      // this.unternehmenData.adresse = '';
+      // this.unternehmenData.login = '';
+      // this.unternehmenData.password = '';
     },
   },
 };

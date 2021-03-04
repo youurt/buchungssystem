@@ -7,6 +7,8 @@ const adminStore = {
     userData: {},
     userSelected: {},
     active: 'Unternehmen',
+    unternehmenData: {},
+    selectedDate: '',
     // fields: [
     //   {
     //     key: 'last_name',
@@ -174,6 +176,13 @@ const adminStore = {
         standort: 'Standort C',
       },
       {
+        name: 'Termin X',
+        datum: '2021-03-07',
+        uhrzeit: '13:00',
+        anzahlteilnehmer: '13',
+        standort: 'Standort B',
+      },
+      {
         name: 'Termin B',
         datum: '2021-03-17',
         uhrzeit: '12:00',
@@ -247,6 +256,18 @@ const adminStore = {
       },
     ],
   }),
+  getters: {
+    updatedUnternehmen: (state) => {
+      state.unternehmenItems.push(state.unternehmenData);
+      return state.unternehmenItems;
+    },
+    filteredTermineItems: (state) => {
+      const data = state.termineItems.filter((item) => {
+        return item.datum === state.selectedDate;
+      });
+      return data;
+    },
+  },
   mutations: {
     changeSelected(state, items) {
       state.selected = items[0];
@@ -277,6 +298,23 @@ const adminStore = {
     },
     activeTab(state, activeData) {
       state.active = activeData;
+    },
+    updateUnternehmen(state, uValue) {
+      state.unternehmenData = uValue;
+      //   state.unternehmenItems.push(uValue);
+    },
+    dateSelected(state, dateValue) {
+      state.selectedDate = dateValue;
+    },
+    collectData(state, payload) {
+      state.buchungenItems.push({
+        name: 'Buchung neu',
+        id: nanoid(6),
+        datum: payload.datum,
+        uhrzeit: payload.uhrzeit,
+        nameteilnehmer: payload.nameteilnehmer,
+        standort: payload.standort,
+      });
     },
   },
   actions: {
@@ -310,6 +348,15 @@ const adminStore = {
     },
     activeTab(context, activeData) {
       context.commit('activeTab', activeData);
+    },
+    updateUnternehmen(context, uValue) {
+      context.commit('updateUnternehmen', uValue);
+    },
+    dateSelected(context, dateValue) {
+      context.commit('dateSelected', dateValue);
+    },
+    collectData(context, payload) {
+      context.commit('collectData', payload);
     },
   },
 };

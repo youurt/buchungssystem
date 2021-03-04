@@ -135,6 +135,7 @@ export default {
   methods: {
     onRowSelected(items) {
       // this.selected = items;
+      console.log(this.itemsUnt, 'unternehmen');
       console.log(this.showActiveTab);
       this.$store.dispatch('changeSelected', items);
     },
