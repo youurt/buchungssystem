@@ -6,23 +6,24 @@ const adminStore = {
     adminData: {},
     userData: {},
     userSelected: {},
-    fields: [
-      {
-        key: 'last_name',
-        sortable: true,
-      },
-      {
-        key: 'first_name',
-        sortable: true,
-      },
-      {
-        key: 'age',
-        label: 'Person age',
-        sortable: true,
-        // Variant applies to the whole column, including the header and footer
-        //   variant: 'danger',
-      },
-    ],
+    active: 'Unternehmen',
+    // fields: [
+    //   {
+    //     key: 'last_name',
+    //     sortable: true,
+    //   },
+    //   {
+    //     key: 'first_name',
+    //     sortable: true,
+    //   },
+    //   {
+    //     key: 'age',
+    //     label: 'Person age',
+    //     sortable: true,
+    //     // Variant applies to the whole column, including the header and footer
+    //     //   variant: 'danger',
+    //   },
+    // ],
     items: [
       {
         age: 40,
@@ -274,6 +275,9 @@ const adminStore = {
     addStandort(state, standortData) {
       state.standorteItems.push(standortData);
     },
+    activeTab(state, activeData) {
+      state.active = activeData;
+    },
   },
   actions: {
     changeSelected(context, items) {
@@ -303,6 +307,9 @@ const adminStore = {
     },
     addStandort(context, standortData) {
       context.commit('addStandort', standortData);
+    },
+    activeTab(context, activeData) {
+      context.commit('activeTab', activeData);
     },
   },
 };

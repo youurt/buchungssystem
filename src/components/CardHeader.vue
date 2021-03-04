@@ -15,15 +15,22 @@
             text="Bearbeiten"
             class="m-md-2"
             v-b-modal.modal-1
-            @click="resetModal"
             >Bearbeiten
           </b-button>
 
           <b-dropdown id="dropdown-1" text="Neu" class="m-md-2">
-            <b-dropdown-item v-b-modal.modal-2>Unternehmen</b-dropdown-item>
-            <b-dropdown-item v-b-modal.modal-3>Event</b-dropdown-item>
-            <b-dropdown-item v-b-modal.modal-4>Termine</b-dropdown-item>
-            <b-dropdown-item v-b-modal.modal-5>Standort</b-dropdown-item>
+            <b-dropdown-item @click="resetModal" v-b-modal.modal-2
+              >Unternehmen</b-dropdown-item
+            >
+            <b-dropdown-item @click="resetModal" v-b-modal.modal-3
+              >Event</b-dropdown-item
+            >
+            <b-dropdown-item @click="resetModal" v-b-modal.modal-4
+              >Termine</b-dropdown-item
+            >
+            <b-dropdown-item @click="resetModal" v-b-modal.modal-5
+              >Standort</b-dropdown-item
+            >
           </b-dropdown>
         </div>
         <!-- Bearbeiten -->

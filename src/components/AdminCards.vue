@@ -87,8 +87,6 @@
 </template>
 
 <script>
-import { nanoid } from 'nanoid';
-
 export default {
   computed: {
     rows() {
@@ -129,19 +127,20 @@ export default {
     itemsStandorte() {
       return this.$store.state.adminStore.standorteItems;
     },
-    // adminLoggedIn() {
-    //   return localStorage.getItem('adminLoggedIn') === true;
-    // },
+    showActiveTab() {
+      return this.$store.state.adminStore.active;
+    },
   },
 
   methods: {
     onRowSelected(items) {
       // this.selected = items;
-
+      console.log(this.showActiveTab);
       this.$store.dispatch('changeSelected', items);
     },
     showTitle(e) {
-      console.log(e.target.innerText);
+      this.$store.dispatch('activeTab', e.target.innerText);
+      // console.log(e.target.innerText);
     },
   },
   data() {
