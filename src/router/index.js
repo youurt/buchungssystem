@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
+import store from '../store/index';
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,9 @@ const routes = [
     name: 'Admin',
     component: () =>
       import(/* webpackChunkName: "about" */ '../views/Admin.vue'),
+    meta: {
+      requiresAuth: true,
+    },
   },
   {
     path: '/user',
@@ -37,6 +41,14 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const adminloggedIn = store.state.adminStore.adminData.email;
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+
+  if (requiresAuth && !adminloggedIn) next('/');
+  else next();
 });
 
 export default router;

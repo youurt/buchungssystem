@@ -69,6 +69,9 @@ export default {
       return this.$store.state.adminStore.userData;
     },
   },
+  mounted() {
+    console.log(this.$store.state.adminStore.adminData.email);
+  },
 };
 </script>
 
