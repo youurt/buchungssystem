@@ -44,6 +44,11 @@ const adminStore = {
         label: 'Password',
         sortable: true,
       },
+      {
+        key: 'welcome',
+        label: 'Welcome Text',
+        sortable: true,
+      },
     ],
     unternehmenItems: [
       {
@@ -51,24 +56,28 @@ const adminStore = {
         adresse: 'Eine Adresse 3, 12345 Stadt',
         login: 'unta@mail.de',
         password: '123456',
+        welcome: 'Unternehmen A Welcome Message',
       },
       {
         name: 'Unternehmen B',
         adresse: 'Eine Adresse 2, 12345 Stadt',
         login: 'untb@mail.de',
         password: '1234567',
+        welcome: 'Unternehmen B Welcome Message',
       },
       {
         name: 'Unternehmen C',
         adresse: 'Eine Adresse 6, 12345 Stadt',
         login: 'untc@mail.de',
         password: '1d23456',
+        welcome: 'Unternehmen C Welcome Message',
       },
       {
         name: 'Unternehmen D',
         adresse: 'Eine Adresse 43, 12345 Stadt',
-        login: 'untd@mail.de',
-        password: '1rr23456',
+        login: 'test@test.de',
+        password: '1234',
+        welcome: 'Unternehmen D Welcome Message',
       },
     ],
     buchungenFields: [
@@ -261,6 +270,11 @@ const adminStore = {
       } else if (state.active === 'Standorte') {
         return `${state.standorteItems.length} Standorte`;
       }
+    },
+    getCompanyText: (state) => {
+      return state.unternehmenItems.filter((el) => {
+        return el.login === state.loggedInUser;
+      });
     },
   },
   mutations: {

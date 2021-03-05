@@ -79,10 +79,6 @@
         ></b-pagination>
       </b-container>
     </b-card>
-    <p>
-      Selected Rows:<br />
-      {{ selected }}
-    </p>
   </div>
 </template>
 

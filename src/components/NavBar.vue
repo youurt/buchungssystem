@@ -1,7 +1,15 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="dark" variant="dark">
-      <b-navbar-brand class="ml-2" href="#">NavBar</b-navbar-brand>
+      <!-- <b-navbar-brand class="ml-2" href="/"
+        ><img src="src/assets/log.png"
+      />
+      
+      </b-navbar-brand> -->
+
+      <b-navbar-brand href="#">
+        <img src="../assets/log.png" alt="Kitten" />
+      </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 

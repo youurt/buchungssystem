@@ -10,8 +10,10 @@
     >
       <b-container class="container-fluid justify-content-center">
         <div class="text-center p-6">
-          © 2021:
-          <a class="dark-text" href="/">COMPANY NAME</a>
+          © 2021
+          <a class="dark-text" href="/"
+            >FahrsicherheitsCentrum Rheinberg GmbH</a
+          >
         </div>
       </b-container>
     </b-navbar>

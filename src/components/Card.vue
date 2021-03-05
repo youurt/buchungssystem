@@ -14,6 +14,9 @@
       <div v-else-if="currentRouteName === 'User'">
         <UserContainer />
       </div>
+      <div v-else-if="currentRouteName === 'Booking'">
+        <BookingContainer />
+      </div>
     </b-card-body>
   </b-card>
 </template>
@@ -24,6 +27,7 @@ import LoginForm from './LoginForm';
 import AdminCards from './AdminCards';
 import UserContainer from './UserContainer';
 import StartContainer from './StartContainer';
+import BookingContainer from './BookingContainer';
 
 export default {
   name: 'Card',
@@ -34,6 +38,7 @@ export default {
     AdminCards,
     UserContainer,
     StartContainer,
+    BookingContainer,
   },
   computed: {
     currentRouteName() {

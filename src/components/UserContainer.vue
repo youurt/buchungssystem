@@ -6,7 +6,7 @@
           responsive="sm"
           v-model="value"
           @context="onContext"
-          locale="en-US"
+          locale="de"
         ></b-calendar>
       </b-col>
       <b-col>
@@ -27,10 +27,7 @@
         </div>
       </b-col>
     </b-row>
-    <p>
-      Selected Rows:<br />
-      {{ selected }}
-    </p>
+
     <b-sidebar
       v-if="selected"
       id="sidebar-1"
@@ -116,11 +113,33 @@
           class="mt-2"
           variant="outline-primary"
           :disabled="!status"
-          @click="sendData"
+          v-b-modal.modal-1
           >Buchen</b-button
         >
       </div>
     </b-sidebar>
+
+    <b-modal
+      id="modal-1"
+      title="Buchungsbestätigung"
+      ref="my-modal"
+      cancel-title="Schließen"
+      hide-footer
+    >
+      <p>
+        Bestätigen Sie die eingaben Verbindlich.
+      </p>
+      <b-container
+        class="mt-4 d-flex justify-content-center align-items-center"
+      >
+        <b-button variant="success" class="ml-2 mr-2" @click="sendData"
+          >Bestätigen</b-button
+        >
+        <b-button variant="outline-primary" class="ml-2 mr-2" @click="printMe"
+          >Drucken</b-button
+        >
+      </b-container>
+    </b-modal>
   </div>
 </template>
 
@@ -161,6 +180,10 @@ export default {
         ...this.selected,
       });
       console.log(this.storeItems, 'updated buchungen');
+      this.$router.push('booking');
+    },
+    printMe() {
+      console.log('print');
     },
   },
   computed: {

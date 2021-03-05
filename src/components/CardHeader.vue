@@ -2,8 +2,8 @@
   <div class="card-header">
     <b-row class="d-flex justify-content-between">
       <div class="ml-3">
-        <h5 class="yellow-text">
-          Header
+        <h5>
+          {{ currentRouteName }}
         </h5>
         <b-badge v-if="currentRouteName === 'Admin'" variant="primary" pill>{{
           counterItemsGetter
@@ -51,9 +51,6 @@
                   ></b-form-input>
                 </b-form-group>
               </b-form>
-              <b-card class="mt-3" header="Form Data Result">
-                <pre class="m-0">{{ selectedForm }}</pre>
-              </b-card>
             </div>
           </b-modal>
         </div>
@@ -121,10 +118,19 @@
                   required
                 ></b-form-input>
               </b-form-group>
+              <b-form-group
+                id="input-group-45"
+                label="Welcome Text:"
+                label-for="input-45"
+              >
+                <b-form-input
+                  id="input-5"
+                  v-model="unternehmenData.welcome"
+                  placeholder="Wilkommens Text"
+                  required
+                ></b-form-input>
+              </b-form-group>
             </b-form>
-            <b-card class="mt-3" header="Form Data Result">
-              <pre class="m-0">{{ unternehmenData }}</pre>
-            </b-card>
           </div>
           <b-button class="mt-3" @click="hideModalU">Bestätigen</b-button>
         </b-modal>
@@ -152,15 +158,6 @@
                 ></b-form-input>
               </b-form-group>
 
-              <!-- <b-form-group id="input-group-6" label="ID:" label-for="input-6">
-                <b-form-input
-                  id="input-6"
-                  v-model="unternehmenData.id"
-                  placeholder="ID der Buchung"
-                  readonly
-                  required
-                ></b-form-input>
-              </b-form-group> -->
               <b-form-group
                 id="input-group-7"
                 label="Datum:"
@@ -172,12 +169,6 @@
                   v-model="eventData.datum"
                   class="mb-2"
                 ></b-form-datepicker>
-                <!-- <b-form-input
-                  id="input-7"
-                  v-model="eventData.datum"
-                  placeholder="Datum des Events"
-                  required
-                ></b-form-input> -->
               </b-form-group>
               <b-form-group
                 id="input-group-8"
@@ -188,12 +179,6 @@
                   v-model="eventData.uhrzeit"
                   locale="de"
                 ></b-form-timepicker>
-                <!-- <b-form-input
-                  id="input-8"
-                  v-model="eventData.uhrzeit"
-                  placeholder="Uhrzeit des Events"
-                  required
-                ></b-form-input> -->
               </b-form-group>
 
               <b-form-group
@@ -221,9 +206,6 @@
                 ></b-form-input>
               </b-form-group>
             </b-form>
-            <b-card class="mt-3" header="Form Data Result">
-              <pre class="m-0">{{ eventData }}</pre>
-            </b-card>
           </div>
           <b-button class="mt-3" @click="hideModalE">Bestätigen</b-button>
         </b-modal>
@@ -255,14 +237,38 @@
                 label="Datum:"
                 label-for="input-12"
               >
+                <b-form-datepicker
+                  required
+                  id="example-datepicker"
+                  v-model="termineData.datum"
+                  class="mb-2"
+                ></b-form-datepicker>
+              </b-form-group>
+
+              <b-form-group
+                id="input-group-13"
+                label="Uhrzeit:"
+                label-for="input-13"
+              >
+                <b-form-timepicker
+                  v-model="termineData.uhrzeit"
+                  locale="de"
+                ></b-form-timepicker>
+              </b-form-group>
+
+              <!-- <b-form-group
+                id="input-group-12"
+                label="Datum:"
+                label-for="input-12"
+              >
                 <b-form-input
                   id="input-12"
                   v-model="termineData.datum"
                   placeholder="Datum des Termins"
                   required
                 ></b-form-input>
-              </b-form-group>
-              <b-form-group
+              </b-form-group> -->
+              <!-- <b-form-group
                 id="input-group-13"
                 label="Uhrzeit:"
                 label-for="input-13"
@@ -273,7 +279,7 @@
                   placeholder="Uhrzeit des Termins"
                   required
                 ></b-form-input>
-              </b-form-group>
+              </b-form-group> -->
 
               <b-form-group
                 id="input-group-14"
@@ -388,9 +394,6 @@
                 ></b-form-input>
               </b-form-group>
             </b-form>
-            <!-- <b-card class="mt-3" header="Form Data Result">
-              <pre class="m-0">{{ unternehmenData }}</pre>
-            </b-card> -->
           </div>
           <b-button class="mt-3" @click="hideModalS">Bestätigen</b-button>
         </b-modal>
@@ -413,6 +416,7 @@ export default {
         adresse: '',
         login: '',
         password: '',
+        welcome: '',
       },
       eventData: {
         name: '',
